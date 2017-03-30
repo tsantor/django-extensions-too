@@ -27,7 +27,7 @@ test_requirements = [
 setup(
     name='django-extensions-too',
     version=version,
-    description="Django Extensions is a collection of custom extensions for the Django Frameworkk.",
+    description="Django Extensions is a collection of custom extensions for the Django Framework.",
     long_description=readme + '\n\n' + history,
     author="Tim Santor",
     author_email='tsantor@xstudios.agency',
