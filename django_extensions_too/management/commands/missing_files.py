@@ -19,6 +19,8 @@ from django.conf import settings
 from django.db import models
 from django.core.management.base import BaseCommand
 
+from django_extensions_too.management.color import color_style
+
 # -----------------------------------------------------------------------------
 
 
@@ -53,6 +55,8 @@ class Command(BaseCommand):
     help = "Prints a list of all files referenced in the database, but are missing in MEDIA_ROOT."
 
     def handle(self, *args, **options):
+        self.style = color_style()
+
         start = time.time()
 
         file_list = []
@@ -86,4 +90,4 @@ class Command(BaseCommand):
                 print(f)
 
         print('-' * 80)
-        print('Execution time: %s' % get_exec_time(time.time()-start))
+        print(self.style.INFO('Execution time: %s' % get_exec_time(time.time()-start)))
