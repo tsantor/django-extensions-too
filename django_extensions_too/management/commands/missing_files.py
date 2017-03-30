@@ -6,6 +6,8 @@
 # is strictly prohibited without written consent.
 #
 # @author  Tim Santor  <tims@thegoco.com>
+#
+# Inspired by: https://github.com/django-extensions/django-extensions/blob/master/django_extensions/management/commands/unreferenced_files.py
 
 # -----------------------------------------------------------------------------
 
@@ -17,12 +19,7 @@ from django.conf import settings
 from django.db import models
 from django.core.management.base import BaseCommand
 
-from django_extensions.management.utils import signalcommand
-
-# from django_extensions.compat import get_apps_from_cache, get_models_from_cache
-
 # -----------------------------------------------------------------------------
-# https://github.com/nikolas/django-extensions/blob/2f96d7512ed8d78415ff26d544dd673cd5d0feeb/django_extensions/compat.py
 
 
 def get_apps_from_cache():
@@ -55,7 +52,6 @@ def get_exec_time(seconds):
 class Command(BaseCommand):
     help = "Prints a list of all files referenced in the database, but are missing in MEDIA_ROOT."
 
-    @signalcommand
     def handle(self, *args, **options):
         start = time.time()
 
