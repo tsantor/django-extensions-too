@@ -37,7 +37,15 @@ class Command(BaseCommand):
         # Get models for all apps we wish to remove
         DEL_APPS = options['apps']
         for a in DEL_APPS:
-            DEL_MODELS = apps.get_app_config(a).get_models()
+            try:
+                DEL_MODELS = apps.get_app_config(a).get_models()
+            except LookupError as err:
+                DEL_MODELS = []
+                print(self.style.WARN(err))
+
+        if not DEL_MODELS:
+            print(self.style.WARN('Nothing to do...'))
+            return
 
         # Remove Content Types
         # Removes entries from auth_permissions, djang_admin_log, django_content_type

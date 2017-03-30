@@ -36,10 +36,10 @@ class Command(BaseCommand):
                 model=opts.object_name.lower(),
                 defaults={'name': smart_unicode(opts.verbose_name_raw)})
 
-            for codename, name in _get_all_permissions(opts, ctype):
+            for codename, name in _get_all_permissions(opts):
                 p, created = Permission.objects.get_or_create(
                     codename=codename,
                     content_type=ctype,
                     defaults={'name': name})
                 if created:
-                    print('Adding permission {}\n'.format(p))
+                    print('Adding permission {}'.format(p))
