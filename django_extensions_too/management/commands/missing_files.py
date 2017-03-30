@@ -11,7 +11,8 @@
 
 # -----------------------------------------------------------------------------
 
-import time
+from __future__ import absolute_import, division, unicode_literals
+
 import os
 from collections import defaultdict
 
@@ -44,25 +45,16 @@ def get_models_from_cache(app):
 # -----------------------------------------------------------------------------
 
 
-def get_exec_time(seconds):
-    """Translate seconds to hh:mm:ss."""
-    m, s = divmod(seconds, 60)
-    h, m = divmod(m, 60)
-    return "%02d:%02d:%02d" % (h, m, s)
-
-
 class Command(BaseCommand):
     help = "Prints a list of all files referenced in the database, but are missing in MEDIA_ROOT."
 
     def handle(self, *args, **options):
         self.style = color_style()
 
-        start = time.time()
-
         file_list = []
 
         if settings.MEDIA_ROOT == '':
-            print("MEDIA_ROOT is not set, nothing to do")
+            print(self.style.WARN('MEDIA_ROOT is not set, nothing to do'))
             return
 
         # Get list of all fields (value) for each model (key)
@@ -89,5 +81,5 @@ class Command(BaseCommand):
             if not os.path.exists(f):
                 print(f)
 
-        print('-' * 80)
-        print(self.style.INFO('Execution time: %s' % get_exec_time(time.time()-start)))
+        if not file_list:
+            print(self.style.INFO('No missing files found'))

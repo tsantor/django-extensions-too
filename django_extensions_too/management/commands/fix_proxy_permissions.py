@@ -11,14 +11,14 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-import sys
-
 from django.apps import apps
 from django.contrib.auth.management import _get_all_permissions
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.utils.encoding import smart_unicode
+
+from django_extensions_too.management.color import color_style
 
 # -----------------------------------------------------------------------------
 
@@ -27,6 +27,8 @@ class Command(BaseCommand):
     help = "Fix permissions for proxy models."
 
     def handle(self, *args, **options):
+        self.style = color_style()
+
         for model in apps.get_models():
             opts = model._meta
             ctype, created = ContentType.objects.get_or_create(
@@ -40,6 +42,4 @@ class Command(BaseCommand):
                     content_type=ctype,
                     defaults={'name': name})
                 if created:
-                    sys.stdout.write('Adding permission {}\n'.format(p))
-                else:
-                    sys.stdout.write('Permission {}\n'.format(p))
+                    print('Adding permission {}\n'.format(p))

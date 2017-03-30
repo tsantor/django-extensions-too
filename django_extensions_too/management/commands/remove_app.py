@@ -9,12 +9,16 @@
 
 # -----------------------------------------------------------------------------
 
+from __future__ import absolute_import, division, unicode_literals
+
 # Django
 from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.contrib.contenttypes.models import ContentType
 
 from django.db import connection
+
+from django_extensions_too.management.color import color_style
 
 # -----------------------------------------------------------------------------
 
@@ -28,6 +32,8 @@ class Command(BaseCommand):
         parser.add_argument('apps', nargs='+', type=str)
 
     def handle(self, *args, **options):
+        self.style = color_style()
+
         # Get models for all apps we wish to remove
         DEL_APPS = options['apps']
         for a in DEL_APPS:
