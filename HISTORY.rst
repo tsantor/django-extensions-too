@@ -8,3 +8,9 @@ This project adheres to `Semantic Versioning <http://semver.org/>`__.
 ------------------
 
 -  First release on PyPI.
+
+0.1.1 (2017-04-03)
+------------------
+
+-  Fixed a bug with an outdated permissions method call in
+   ``fix_proxy_permissions`` command.
