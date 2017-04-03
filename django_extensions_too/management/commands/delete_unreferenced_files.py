@@ -19,8 +19,6 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import models
 
-from django_extensions.management.utils import signalcommand
-
 from django_extensions_too.management.color import color_style
 
 # -----------------------------------------------------------------------------
@@ -29,7 +27,6 @@ from django_extensions_too.management.color import color_style
 class Command(BaseCommand):
     help = "Deletes all files in MEDIA_ROOT that are not referenced in the database."
 
-    @signalcommand
     def handle(self, *args, **options):
         self.style = color_style()
 
