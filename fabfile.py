@@ -3,6 +3,13 @@ from fabric.contrib.console import prompt, confirm
 
 version = __import__('django_extensions_too').__version__
 
+
+@task
+def publish():
+    """Publish to PyPi."""
+    local('python setup.py register -r pypi && python setup.py sdist bdist_wheel bdist_egg upload -r pypi')
+
+
 @task
 def build():
     """Build and publish to PyPi."""
@@ -18,10 +25,4 @@ def build():
         local('git push origin --tags')
 
     if confirm('Publish to PyPi'):
-        local('pypi_publish')
-
-@task
-def publish():
-    """Publish to PyPi."""
-    local('pypi_publish')
-
+        publish()
