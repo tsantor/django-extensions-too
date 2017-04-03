@@ -36,6 +36,7 @@ class Command(BaseCommand):
 
         # Get models for all apps we wish to remove
         DEL_APPS = options['apps']
+
         for a in DEL_APPS:
             try:
                 DEL_MODELS = apps.get_app_config(a).get_models()
@@ -49,16 +50,15 @@ class Command(BaseCommand):
 
         # Remove Content Types
         # Removes entries from auth_permissions, djang_admin_log, django_content_type
-        print('=> Remove Content Types...')
+        print(self.style.INFO('=> Remove Content Types...'))
         ct = ContentType.objects.all().order_by("app_label", "model")
-
         for c in ct:
             if (c.app_label in DEL_APPS) or (c.model in DEL_MODELS):
                 print("Deleting Content Type {} {}".format(c.app_label, c.model))
                 c.delete()
 
         # Remove Model Tables
-        print('=> Remove Model Tables...')
+        print(self.style.INFO('=> Remove Model Tables...'))
         for c in ct:
             if (c.app_label in DEL_APPS) or (c.model in DEL_MODELS):
                 print("Deleting Table '{}_{}'".format(c.app_label, c.model))
@@ -69,7 +69,7 @@ class Command(BaseCommand):
                 cursor = connection.cursor()
                 cursor.execute(sql)
 
-        print('=> Remove Migration History...')
+        print(self.style.INFO('=> Remove Migration History...'))
         for a in DEL_APPS:
             sql = "DELETE FROM django_migrations WHERE app='{app_label}';".format(app_label=a)
             print("Deleting Migrations for app '{}'".format(a))
