@@ -13,9 +13,12 @@ def publish():
 @task
 def build():
     """Build and publish to PyPi."""
+    if not confirm('Did you remember to update the version for this release?'):
+        return
+
     local('python md2rst.py')
 
-    message = prompt('Please supply a commit message')
+    message = prompt('Please supply a commit message:')
     if message:
         local('git add -A')
         local('git commit -m "{}"'.format(message))
@@ -24,5 +27,5 @@ def build():
         local('git tag {}'.format(version))
         local('git push origin --tags')
 
-    if confirm('Publish to PyPi'):
+    if confirm('Publish to PyPi?'):
         publish()
