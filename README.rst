@@ -6,8 +6,8 @@ Author:Tim Santor tsantor@xstudios.agency
 Overview
 ========
 
-Django Extensions is a collection of custom extensions for the Django
-Framework. It is recommended as a supplement to the excellent
+Django Extensions Too is a collection of custom extensions for the
+Django Framework. It is recommended as a supplement to the excellent
 https://github.com/django-extensions/django-extensions
 
 Getting It
@@ -37,8 +37,8 @@ setup.py:
 Installing It
 =============
 
-To enable django\_extensions\_too in your project you need to add it to
-INSTALLED\_APPS in your projects settings.py file:
+To enable ``django_extensions_too`` in your project you need to add it
+to ``INSTALLED_APPS`` in your projects ``settings.py`` file:
 
 ::
 
@@ -51,27 +51,28 @@ INSTALLED\_APPS in your projects settings.py file:
 Using It
 ========
 
-Delete all files from MEDIA\_ROOT which are not referenced in the
+Delete all files from ``MEDIA_ROOT`` which are not referenced in the
 database.
 
 ::
 
     $ python manage.py delete_unreferenced_files
 
-Show a list of all files missing from MEDIA\_ROOT that are referenced in
-the database.
+Show a list of all files missing from ``MEDIA_ROOT`` that are referenced
+in the database.
 
 ::
 
     $ python manage.py missing_files
 
 Completely remove an installed app from a project. Removes all model
-related tables as well as all traces from auth\_permissions,
-djang\_admin\_log, django\_content\_type, django\_migrations, etc.
+related tables as well as all traces from ``auth_permissions``,
+``django_admin_log``, ``django_content_type``, ``django_migrations``,
+etc.
 
 ::
 
-    $ python manage.py remove_app
+    $ python manage.py remove_app appname
 
 Adds permissions where the model actually references the proxy model and
 not the original model.
