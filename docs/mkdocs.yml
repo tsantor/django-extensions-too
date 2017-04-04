@@ -20,4 +20,4 @@ repo_name: Bitbucket
 
 #google_analytics: ['UA-36723568-3', 'mkdocs.org']
 
-#theme: readthedocs
+theme: yeti

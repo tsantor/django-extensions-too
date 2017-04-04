@@ -1,18 +1,22 @@
 # Django Extensions Too
 Author: Tim Santor <tsantor@xstudios.agency>
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+# Using It
+Delete all files from `MEDIA_ROOT` which are not referenced in the database.
 
-## Commands
+    $ python manage.py delete_unreferenced_files
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
 
-## Project layout
+Show a list of all files missing from `MEDIA_ROOT` that are referenced in the database.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    $ python manage.py missing_files
+
+
+Completely remove an installed app from a project. Removes all model related tables as well as all traces from `auth_permissions`, `django_admin_log`, `django_content_type`, `django_migrations`, etc.
+
+    $ python manage.py remove_app appname
+
+
+Adds permissions where the model actually references the proxy model and not the original model.
+
+    $ python manage.py fix_proxy_permissions

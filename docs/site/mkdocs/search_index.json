@@ -1,0 +1,19 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Django Extensions Too\n\n\nAuthor: Tim Santor \n\n\nUsing It\n\n\nDelete all files from \nMEDIA_ROOT\n which are not referenced in the database.\n\n\n$ python manage.py delete_unreferenced_files\n\n\n\nShow a list of all files missing from \nMEDIA_ROOT\n that are referenced in the database.\n\n\n$ python manage.py missing_files\n\n\n\nCompletely remove an installed app from a project. Removes all model related tables as well as all traces from \nauth_permissions\n, \ndjango_admin_log\n, \ndjango_content_type\n, \ndjango_migrations\n, etc.\n\n\n$ python manage.py remove_app appname\n\n\n\nAdds permissions where the model actually references the proxy model and not the original model.\n\n\n$ python manage.py fix_proxy_permissions", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#django-extensions-too", 
+            "text": "Author: Tim Santor", 
+            "title": "Django Extensions Too"
+        }, 
+        {
+            "location": "/#using-it", 
+            "text": "Delete all files from  MEDIA_ROOT  which are not referenced in the database.  $ python manage.py delete_unreferenced_files  Show a list of all files missing from  MEDIA_ROOT  that are referenced in the database.  $ python manage.py missing_files  Completely remove an installed app from a project. Removes all model related tables as well as all traces from  auth_permissions ,  django_admin_log ,  django_content_type ,  django_migrations , etc.  $ python manage.py remove_app appname  Adds permissions where the model actually references the proxy model and not the original model.  $ python manage.py fix_proxy_permissions", 
+            "title": "Using It"
+        }
+    ]
+}
