@@ -2,7 +2,7 @@
 Author:Tim Santor <tsantor@xstudios.agency>
 
 # Overview
-Django Extensions is a collection of custom extensions for the Django Framework. It is recommended as a supplement to the excellent https://github.com/django-extensions/django-extensions
+Django Extensions Too is a collection of custom extensions for the Django Framework. It is recommended as a supplement to the excellent https://github.com/django-extensions/django-extensions
 
 
 # Getting It
@@ -36,13 +36,16 @@ Delete all files from MEDIA_ROOT which are not referenced in the database.
 
     $ python manage.py delete_unreferenced_files
 
+
 Show a list of all files missing from MEDIA_ROOT that are referenced in the database.
 
     $ python manage.py missing_files
 
+
 Completely remove an installed app from a project. Removes all model related tables as well as all traces from auth_permissions, djang_admin_log, django_content_type, django_migrations, etc.
 
     $ python manage.py remove_app
+
 
 Adds permissions where the model actually references the proxy model and not the original model.
 
