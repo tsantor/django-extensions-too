@@ -75,3 +75,8 @@ class Command(BaseCommand):
             print("Deleting Migrations for app '{}'".format(a))
             cursor = connection.cursor()
             cursor.execute(sql)
+
+        print(self.style.INFO('=> Remove Django Log Entries...'))
+        sql = "DELETE FROM django_admin_log WHERE content_type_id IS NULL;"
+        cursor = connection.cursor()
+        cursor.execute(sql)
