@@ -61,5 +61,6 @@ class Command(BaseCommand):
         # Print each file in MEDIA_ROOT that is not referenced in the database
         not_referenced = media - referenced
         for f in not_referenced:
-            print(f)
-            os.remove(f)
+            if os.path.join('cache', '') not in f:
+                print(f)
+                os.remove(f)
