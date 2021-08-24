@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2017
-#
-# This file is part of proprietary software and use of this file
-# is strictly prohibited without written consent.
-#
-# @author  Tim Santor  <tims@thegoco.com>
-
-# -----------------------------------------------------------------------------
-
-from __future__ import absolute_import, division, unicode_literals
-
 from django.apps import apps
 from django.contrib.auth.management import _get_all_permissions
 from django.contrib.auth.models import Permission
@@ -34,12 +21,12 @@ class Command(BaseCommand):
             ctype, created = ContentType.objects.get_or_create(
                 app_label=opts.app_label,
                 model=opts.object_name.lower(),
-                defaults={'name': smart_unicode(opts.verbose_name_raw)})
+                defaults={"name": smart_unicode(opts.verbose_name_raw)},
+            )
 
             for codename, name in _get_all_permissions(opts):
                 p, created = Permission.objects.get_or_create(
-                    codename=codename,
-                    content_type=ctype,
-                    defaults={'name': name})
+                    codename=codename, content_type=ctype, defaults={"name": name}
+                )
                 if created:
-                    print('Adding permission {}'.format(p))
+                    print("Adding permission {}".format(p))
