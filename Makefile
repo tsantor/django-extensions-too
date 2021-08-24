@@ -25,6 +25,8 @@ serve:
 
 scratch: env reqs migrate createsuperuser serve
 
+clean:
+	rm -rf {build,dist}
 
 list_commands:
 	python manage.py
