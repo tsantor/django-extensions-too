@@ -10,23 +10,16 @@ reqs:
 		&& python -m pip install -r requirements_dev.txt \
 		&& python -m pip install -r requirements_test.txt
 
-migrations:
-	python manage.py makemigrations
-
-migrate:
-	python manage.py migrate
-
-createsuperuser:
-	python manage.py createsuperuser
-
-serve:
-	python manage.py runserver 0.0.0.0:8080
-
-
-scratch: env reqs migrate createsuperuser serve
-
 clean:
-	rm -rf {build,dist}
+	# Remove build artifacts
+	rm -rf {build,dist,*.egg-info}
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
-list_commands:
-	python manage.py
+build:
+	python setup.py sdist bdist_wheel
+
+upload_test:
+	python setup.py sdist bdist_wheel && twine upload dist/* -r pypitest
+
+upload:
+	python setup.py sdist bdist_wheel && twine upload dist/* -r pypi

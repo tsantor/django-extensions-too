@@ -3,7 +3,6 @@ from collections import defaultdict
 from pathlib import Path
 
 from django.apps import apps
-from django.conf import settings
 from django.core.files.storage import default_storage as storage
 from django.core.management.base import BaseCommand
 from django.db import models
@@ -14,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 
-# https://gist.github.com/dvf/c103e697dab77c304d39d60cf279c500
+
 def walk_folder(storage, base="/", error_handler=None):
     """
     Recursively walks a folder, using Django's File Storage.
@@ -22,6 +21,8 @@ def walk_folder(storage, base="/", error_handler=None):
     :param base: <str> The base folder
     :param error_handler: <callable>
     :yields: A tuple of base, subfolders, files
+
+    # https://gist.github.com/dvf/c103e697dab77c304d39d60cf279c500
     """
     try:
         folders, files = storage.listdir(base)
