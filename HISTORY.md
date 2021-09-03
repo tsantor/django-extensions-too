@@ -1,6 +1,9 @@
 # History
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.4 (2021-09-03)
+* Added `manifest_storage_check` to test manifest storage methods locally.
+
 ## 0.1.3 (2021-08-24)
 * Fixed `delete_unreferenced_files` and `missing_files` to not assume local file storage backend.
 
