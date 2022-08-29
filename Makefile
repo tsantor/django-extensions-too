@@ -1,25 +1,76 @@
-python_version=3.9.4
+.DEFAULT_GOAL := help
+
+define PRINT_HELP_PYSCRIPT
+import re, sys
+
+for line in sys.stdin:
+	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	if match:
+		target, help = match.groups()
+		print("%-20s %s" % (target, help))
+endef
+export PRINT_HELP_PYSCRIPT
+
+help:
+	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+# -----------------------------------------------------------------------------
+
+python_version=3.9.11
 venv=djangoextensionstoo_env
 
-env:
+# -----------------------------------------------------------------------------
+# Environment setup
+# -----------------------------------------------------------------------------
+
+env: ## create virtualenv
+	mkdir -p ~/.venvs
+	python3.9 -m venv ~/.venvs/${venv}
+	source ~/.venvs/${venv}/bin/activate
+
+pyenv: ## create pyenv virtualenv
 	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
 
-reqs:
+reqs: ## install development requirements
 	python -m pip install -U pip \
 		&& python -m pip install -r requirements.txt \
 		&& python -m pip install -r requirements_dev.txt \
 		&& python -m pip install -r requirements_test.txt
 
-clean:
-	# Remove build artifacts
-	rm -rf {build,dist,*.egg-info}
-	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+destroy_env: ## destroy venv virtualenv
+	deactivate ${venv}  && rm -rf ~/.venvs/${venv}
 
-build:
-	python setup.py sdist bdist_wheel
+destroy_penv:  ## destroy pyenv virtualenv
+	pyenv uninstall ${venv}
 
-upload_test:
-	python setup.py sdist bdist_wheel && twine upload dist/* -r pypitest
+# -----------------------------------------------------------------------------
+# Cleanup
+# -----------------------------------------------------------------------------
 
-upload:
-	python setup.py sdist bdist_wheel && twine upload dist/* -r pypi
+clean: clean-build clean-pyc ## remove all build, test, coverage and Python artifacts
+
+clean-build: ## remove build artifacts
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc: ## remove Python file artifacts
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+# -----------------------------------------------------------------------------
+# Deploy
+# -----------------------------------------------------------------------------
+
+dist: clean ## builds source and wheel package
+	python -m build --wheel
+
+release_test: ## upload package to pypi test
+	twine upload dist/* -r pypitest
+
+release: dist ## package and upload a release
+	twine upload dist/*

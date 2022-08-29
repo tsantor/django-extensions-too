@@ -21,8 +21,8 @@ class Command(BaseCommand):
         """
 
         staticfiles_storages = [
-            "whitenoise.storage.CompressedManifestStaticFilesStorage",
             "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+            "whitenoise.storage.CompressedManifestStaticFilesStorage",
         ]
 
         # Defense against forgetfullness
@@ -31,11 +31,22 @@ class Command(BaseCommand):
             print("     DEBUG = False")
             return
 
-        if settings.STATICFILES_STORAGE not in staticfiles_storages:
+        # if settings.STATICFILES_STORAGE not in staticfiles_storages:
+        #     print("Ensure ONE of the following lines is in settings")  # noqa
+        #     for storage in staticfiles_storages:
+        #         print(f'    STATICFILES_STORAGE = "{storage}"')
+            # return
+
+        storages = [
+            "ManifestStaticFilesStorage"  # django.contrib.staticfiles.storage.ManifestStaticFilesStorage
+            "CompressedManifestStaticFilesStorage",  # whitenoise.storage.CompressedManifestStaticFilesStorage
+        ]
+
+        if not any(x in settings.STATICFILES_STORAGE for x in storages):
             print("Ensure ONE of the following lines is in settings")  # noqa
             for storage in staticfiles_storages:
                 print(f'    STATICFILES_STORAGE = "{storage}"')
-            return
+            # return
 
         if not hasattr(settings, "STATIC_ROOT"):
             print("You need to set STATIC_ROOT")

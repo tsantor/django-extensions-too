@@ -19,9 +19,9 @@ SECRET_KEY = "fqr1#2lon7^(e#_4vg2*zi#30y36#^46!k(-9hr2uu&j+@l0jx"
 DEBUG = True
 
 # Test manifest storage locally
-# DEBUG = False
-# STATIC_ROOT = os.path.join(BASE_DIR, "tests/staticfiles/")
-# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+DEBUG = False
+STATIC_ROOT = os.path.join(BASE_DIR, "tests/staticfiles/")
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 ALLOWED_HOSTS = [
     "*",

@@ -58,8 +58,10 @@ class Command(BaseCommand):
         for base, subfolders, files in walk_folder(storage, "."):
             # print(base, subfolders, files)
             for f in files:
-                path = Path(base) / Path(f)
-                media.add(str(path))
+                # Ignore sorl thumbnail cache files
+                if "cache/" not in str(Path(base)):
+                    path = Path(base) / Path(f)
+                    media.add(str(path))
 
         # Get list of all fields (value) for each model (key)
         # that is a FileField or subclass of a FileField

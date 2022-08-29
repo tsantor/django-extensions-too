@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-extensions-too"
+description = "Django Extensions is a collection of custom extensions for the Django Framework."
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+dynamic = ["version", "readme"]
+requires-python = ">=3.6"
+authors = [{ name = "Tim Santor", email = "tsantor@xstudios.com" }]
+
+[project.scripts]
+xapp-monitor = "xapp_monitor.client.cli:run"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "pre-commit",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "django_extensions_too.__version__"}
+readme = {file = ["README.md", "HISTORY.md"]}
