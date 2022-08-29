@@ -35,7 +35,7 @@ class Command(BaseCommand):
         #     print("Ensure ONE of the following lines is in settings")  # noqa
         #     for storage in staticfiles_storages:
         #         print(f'    STATICFILES_STORAGE = "{storage}"')
-            # return
+        # return
 
         storages = [
             "ManifestStaticFilesStorage"  # django.contrib.staticfiles.storage.ManifestStaticFilesStorage
