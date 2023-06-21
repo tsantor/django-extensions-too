@@ -55,11 +55,10 @@ class Command(BaseCommand):
 
         # Get a list of all files missing in MEDIA_ROOT
         for model, value in model_dict.items():
-            all = model.objects.all().iterator()
-            for object in all:
+            all_files = model.objects.all().iterator()
+            for object in all_files:
                 for field in value:
-                    target_file = getattr(object, field.name)
-                    if target_file:
+                    if target_file := getattr(object, field.name):
                         file_list.append(target_file.name)
 
         # Print list of missing files

@@ -3,7 +3,7 @@ from django.contrib.auth.management import _get_all_permissions
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_str
 
 from django_extensions_too.management.color import color_style
 
@@ -21,7 +21,7 @@ class Command(BaseCommand):
             ctype, created = ContentType.objects.get_or_create(
                 app_label=opts.app_label,
                 model=opts.object_name.lower(),
-                defaults={"name": smart_unicode(opts.verbose_name_raw)},
+                defaults={"name": smart_str(opts.verbose_name_raw)},
             )
 
             for codename, name in _get_all_permissions(opts):

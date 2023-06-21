@@ -57,8 +57,21 @@ serve:  ## serve django development app
 scratch: env reqs migrate createsuperuser serve
 
 
+# Quick tests
 delete_unreferenced_files:
 		python manage.py delete_unreferenced_files --dry-run
+
+get_all_permissions:
+		python manage.py get_all_permissions
+
+manifest_storage_check:
+		python manage.py manifest_storage_check
+
+missing_files:
+		python manage.py missing_files
+
+fix_proxy_permissions:
+		python manage.py fix_proxy_permissions
 
 # -----------------------------------------------------------------------------
 # Cleanup
