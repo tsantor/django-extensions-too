@@ -39,7 +39,7 @@ destroy_env:  ## destroy pyenv virtualenv
 # Django
 # -----------------------------------------------------------------------------
 
-migrations:  ## create django migrations
+python manage.py makemigrations:  ## create django migrations
 		python manage.py makemigrations
 
 migrate:  ## apply django migrations
