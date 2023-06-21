@@ -1,6 +1,9 @@
 # History
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.6 (2023-06-21)
+* Change to new Python packaging style with `pyproject.toml`.
+
 ## 0.1.5 (2022-08-29)
 * Ignore `sorl-thumbnail` `cache/` files.
 
@@ -18,3 +21,4 @@ All notable changes to this project will be documented in this file. This projec
 
 ## 0.1.0 (2017-03-30)
 * First release on PyPI.
+
