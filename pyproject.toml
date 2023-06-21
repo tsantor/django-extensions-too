@@ -10,8 +10,6 @@ classifiers = [
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -21,7 +19,7 @@ classifiers = [
 dependencies = []
 
 dynamic = ["version", "readme"]
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 authors = [{ name = "Tim Santor", email = "tsantor@xstudios.com" }]
 
 [project.scripts]
