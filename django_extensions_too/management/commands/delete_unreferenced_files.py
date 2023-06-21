@@ -1,15 +1,13 @@
-import logging
+
 from collections import defaultdict
 from pathlib import Path
 
 from django.apps import apps
-from django.core.files.storage import default_storage as storage
+from django.core.files.storage import default_storage
 from django.core.management.base import BaseCommand
 from django.db import models
 
 # from django_extensions_too.management.color import color_style
-
-logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 
@@ -27,7 +25,7 @@ def walk_folder(storage, base="/", error_handler=None):
     try:
         folders, files = storage.listdir(base)
     except OSError as e:
-        logger.exception("An error occurred while walking directory %s", base)
+        print(f"An error occurred while walking directory {base}")
         if error_handler:
             error_handler(e)
         return
@@ -55,7 +53,7 @@ class Command(BaseCommand):
 
         # Get a list of all files under MEDIA_ROOT
         media = set()
-        for base, subfolders, files in walk_folder(storage, "."):
+        for base, subfolders, files in walk_folder(default_storage, "."):
             # print(base, subfolders, files)
             for f in files:
                 # Ignore sorl thumbnail cache files
@@ -85,6 +83,6 @@ class Command(BaseCommand):
         not_referenced = media - referenced
         for f in not_referenced:
             if options["dry_run"]:
-                logging.info("**DRY-RUN** would delete %s", f)
+                print(f"**DRY-RUN** would delete {f}")
             else:
-                storage.delete(f)
+                default_storage.delete(f)

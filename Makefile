@@ -59,7 +59,7 @@ scratch: env reqs migrate createsuperuser serve
 
 # Quick tests
 delete_unreferenced_files:
-		python manage.py delete_unreferenced_files --dry-run
+		python manage.py delete_unreferenced_files
 
 get_all_permissions:
 		python manage.py get_all_permissions
