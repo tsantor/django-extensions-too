@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -22,9 +22,6 @@ dynamic = ["version", "readme"]
 requires-python = ">=3.8"
 authors = [{ name = "Tim Santor", email = "tsantor@xstudios.com" }]
 
-[project.scripts]
-xapp-monitor = "xapp_monitor.client.cli:run"
-
 [project.optional-dependencies]
 dev = [
     "black",
@@ -37,4 +34,4 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "django_extensions_too.__version__"}
-readme = {file = ["README.md", "HISTORY.md"]}
+readme = {file = ["README.md", "HISTORY.md"], content-type = "text/markdown"}

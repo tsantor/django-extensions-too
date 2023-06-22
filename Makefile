@@ -73,6 +73,9 @@ missing_files:
 fix_proxy_permissions:
 		python manage.py fix_proxy_permissions
 
+manage:
+		python manage.py
+
 # -----------------------------------------------------------------------------
 # Cleanup
 # -----------------------------------------------------------------------------

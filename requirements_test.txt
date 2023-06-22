@@ -1,7 +1,1 @@
-django
-coverage
-mock
-flake8
-tox
-codecov
-django-model-utils
+
