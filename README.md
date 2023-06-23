@@ -25,5 +25,23 @@ INSTALLED_APPS = (
 ## Using It
 Run `python manage.py` and view the available `[django_extensions_too]` management_commands.
 
+## Development
+
+    make env
+    make reqs
+    pip install -e .
+
+## Testing
+Project is at **76%** test coverage.
+
+    python3 runtests.py
+
+    pytest -v
+    tox
+
+    # Run coverage
+    pytest --cov-report html --cov-report term --cov=tests/
+
+
 ## Issues
 If you experience any issues, please create an [issue](https://bitbucket.org/tsantor/django-extensions-too/issues) on Bitbucket.
