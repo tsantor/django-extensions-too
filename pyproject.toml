@@ -28,9 +28,9 @@ dev = [
     "pre-commit",
 ]
 
-[tool.setuptools.packages.find]
-# https://setuptools.pypa.io/en/latest/userguide/datafiles.html
-where = ["src"]
+# [tool.setuptools.packages.find]
+# # https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+# where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "django_extensions_too.__version__"}
