@@ -39,14 +39,14 @@ class Command(BaseCommand):
         ct = ContentType.objects.all().order_by("app_label", "model")
         for c in ct:
             if (c.app_label in DEL_APPS) or (c.model in DEL_MODELS):
-                print("Deleting Content Type {} {}".format(c.app_label, c.model))
+                print(f"Deleting Content Type {c.app_label} {c.model}")
                 c.delete()
 
         # Remove Model Tables
         print(self.style.INFO("=> Remove Model Tables..."))
         for c in ct:
             if (c.app_label in DEL_APPS) or (c.model in DEL_MODELS):
-                print("Deleting Table '{}_{}'".format(c.app_label, c.model))
+                print(f"Deleting Table '{c.app_label}_{c.model}'")
                 sql = """
                 SET FOREIGN_KEY_CHECKS=0;
                 DROP TABLE {}_{};
@@ -58,10 +58,8 @@ class Command(BaseCommand):
 
         print(self.style.INFO("=> Remove Migration History..."))
         for a in DEL_APPS:
-            sql = "DELETE FROM django_migrations WHERE app='{app_label}';".format(
-                app_label=a
-            )
-            print("Deleting Migrations for app '{}'".format(a))
+            sql = f"DELETE FROM django_migrations WHERE app='{a}';"
+            print(f"Deleting Migrations for app '{a}'")
             cursor = connection.cursor()
             cursor.execute(sql)
 

@@ -13,9 +13,7 @@ def get_apps_from_cache():
     try:
         from django.apps import apps
 
-        return [
-            app.models_module for app in apps.get_app_configs() if app.models_module
-        ]
+        return [app.models_module for app in apps.get_app_configs() if app.models_module]
     except ImportError:
         from django.db.models.loading import cache
 

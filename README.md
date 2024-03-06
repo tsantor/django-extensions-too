@@ -1,19 +1,21 @@
 # Django Extensions Too
+
 Author:Tim Santor <tsantor@xstudios.com>
 
 ## Overview
+
 Django Extensions Too is a collection of custom extensions for the Django Framework. It is recommended as a supplement to the excellent https://github.com/django-extensions/django-extensions
 
-
 ## Quickstart
+
 To install Django Extensions Too:
 
 ```bash
 python3 -m pip install django-extensions-too
 ```
 
-
 ### Settings
+
 To enable `django_extensions_too` in your project you need to add it to `INSTALLED_APPS` in your projects `settings.py` file:
 
 ```python
@@ -23,8 +25,8 @@ INSTALLED_APPS = (
 ```
 
 ## Using It
-Run `python3 manage.py` and view the available `[django_extensions_too]` management_commands.
 
+Run `python3 manage.py` and view the available `[django_extensions_too]` management_commands.
 
 ## Local Development
 
@@ -46,6 +48,6 @@ Currently django_spaday has **94%** test coverage.
 - Coverage: `make coverage`
   - Open Report: `make open_coverage`
 
-
 ## Issues
+
 If you experience any issues, please create an [issue](https://bitbucket.org/tsantor/django-extensions-too/issues) on Bitbucket.

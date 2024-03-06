@@ -29,4 +29,4 @@ class Command(BaseCommand):
                     codename=codename, content_type=ctype, defaults={"name": name}
                 )
                 if created:
-                    print("Adding permission {}".format(p))
+                    print(f"Adding permission {p}")

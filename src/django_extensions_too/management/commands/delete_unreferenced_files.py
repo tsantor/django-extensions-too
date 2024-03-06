@@ -43,9 +43,7 @@ class Command(BaseCommand):
     help = "Deletes all files in MEDIA_ROOT that are not referenced in the database."
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "--dry-run", help="Do not delete anything", action="store_true"
-        )
+        parser.add_argument("--dry-run", help="Do not delete anything", action="store_true")
 
     def handle(self, *args, **options):
         # self.style = color_style()

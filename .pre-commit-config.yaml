@@ -1,4 +1,4 @@
-exclude: "^docs/|/migrations/|devcontainer.json"
+exclude: '^docs/|/migrations/|devcontainer.json'
 default_stages: [commit]
 
 default_language_version:
@@ -24,14 +24,14 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        args: ["--tab-width", "2", "--single-quote"]
-        exclude: "templates/|django_spaday/static/css/"
+        args: ['--tab-width', '2', '--single-quote']
+        exclude: 'templates/|django_spaday/static/css/'
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.16.0"
+    rev: '1.16.0'
     hooks:
       - id: django-upgrade
-        args: ["--target-version", "4.2"]
+        args: ['--target-version', '4.2']
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.15.1
@@ -53,7 +53,7 @@ repos:
     rev: 7.0.0
     hooks:
       - id: flake8
-        args: ["--extend-ignore=E501"]
+        args: ['--extend-ignore=E501']
 
   # - repo: https://github.com/Riverside-Healthcare/djLint
   #   rev: v1.34.1
