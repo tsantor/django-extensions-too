@@ -1,10 +1,17 @@
 {
-  "python.linting.flake8Enabled": true,
   "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
   "[python]": {
-      "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-      }
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/.git": true,
+    "**/migrations": false
   }
 }

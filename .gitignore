@@ -51,5 +51,5 @@ docs/_build
 db.sqlite3
 
 .DS_Store
-tests/staticfiles
-tests/media
+django_project/staticfiles/*
+django_project/media/*

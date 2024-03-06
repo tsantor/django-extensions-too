@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Generate help output when running just `make`
+# -----------------------------------------------------------------------------
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -12,7 +15,7 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 # -----------------------------------------------------------------------------
 
@@ -20,91 +23,112 @@ python_version=3.9.11
 venv=djangoextensionstoo_env
 
 # -----------------------------------------------------------------------------
-# Environment setup
+# Development
 # -----------------------------------------------------------------------------
 
-env:  ## create virtualenv
+env:  ## Create virtual environment
 	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
 
-reqs:  ## install development requirements
-	python3 -m pip install -U pip \
-			&& python3 -m pip install -r requirements.txt \
-			&& python3 -m pip install -r requirements_dev.txt \
-			&& python3 -m pip install -r requirements_test.txt
+reqs:  ## Install requirements
+	python3 -m pip install -U pip && \
+		python -m pip install -r requirements_dev.txt && \
+		python -m pip install -r requirements_test.txt
 
-destroy_env:  ## destroy pyenv virtualenv
+env_remove:  ## Remove virtual environment
 	pyenv uninstall ${venv}
-	rm db.sqlite3
 
-# -----------------------------------------------------------------------------
-# Django
-# -----------------------------------------------------------------------------
+pip_list:  ## run pip list
+	python3 -m pip list
 
-migrations:  ## create django migrations
-	python3 manage.py makemigrations
+pip_freeze:  ## run pipfreezer
+	pipfreezer
 
-migrate:  ## apply django migrations
-	python3 manage.py migrate
+manage:	## run django manage.py (eg - make manage cmd="shell")
+	python3 manage.py ${cmd}
 
-createsuperuser:  ## create django superuser
+superuser:  ## Create superuser
 	python3 manage.py createsuperuser
 
-collectstatic:  ## django collect static
-	python3 manage.py collectstatic
+migrations:  ## Create migrations
+	python3 manage.py makemigrations
 
-serve:  ## serve django development app
-	python3 manage.py runserver 0.0.0.0:8080
+migrate:  ## Apply migrations
+	python3 manage.py migrate
 
-scratch: env reqs migrate createsuperuser serve
+serve:  ## Run server
+	python3 manage.py runserver 127.0.0.1:8000
 
+show_urls:  ## show urls
+	python3 manage.py show_urls
 
-# Quick tests
-delete_unreferenced_files:
-	python3 manage.py delete_unreferenced_files
+shell:  ## run shell
+	python3 manage.py shell_plus
 
-get_all_permissions:
-	python3 manage.py get_all_permissions
+flush:  ## Flush database
+	python3 manage.py flush
 
-manifest_storage_check:
-	python3 manage.py manifest_storage_check
-
-missing_files:
-	python3 manage.py missing_files
-
-fix_proxy_permissions:
-	python3 manage.py fix_proxy_permissions
-
-manage:
-	python3 manage.py
+tree:  ## Show directory tree
+	tree -I 'build|dist|htmlcov|node_modules|migrations|contrib|__pycache__|*.egg-info|staticfiles|media'
 
 # -----------------------------------------------------------------------------
 # Cleanup
 # -----------------------------------------------------------------------------
 
-clean: clean-build clean-pyc ## remove all build, test, coverage and Python artifacts
+clean_build: ## remove build artifacts
+	rm -fr build/ dist/ .eggs/
+	find . -name '*.egg-info' -o -name '*.egg' -exec rm -fr {} +
 
-clean-build: ## remove build artifacts
-	rm -fr build/
-	rm -fr dist/
-	rm -fr .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+clean_pyc: ## remove Python file artifacts
+	find . \( -name '*.pyc' -o -name '*.pyo' -o -name '*~' -o -name '__pycache__' \) -exec rm -fr {} +
 
-clean-pyc: ## remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+clean: clean_build clean_pyc ## remove all build, test, coverage and Python artifacts
+
+clear_pytest_cache:  ## clear pytest cache
+	# pytest --cache-clear
+	rm -rf .pytest_cache
+
+clear_coverage:  ## clear coverage data
+	coverage erase
+
+clear_test_cache: clear_pytest_cache clear_coverage  ## clear test cache
+
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
+
+pytest:  ## Run tests
+	pytest -v -x
+
+pytest_verbose:  ## Run tests
+	pytest -vs
+
+coverage:  ## Run tests with coverage
+	coverage run -m pytest && coverage html
+
+coverage_verbose:  ## Run tests with coverage
+	coverage run -m pytest -vs && coverage html
+
+coverage_skip:  ## Run tests with coverage
+	coverage run -m pytest -vs && coverage html --skip-covered
+
+open_coverage:  ## open coverage report
+	open htmlcov/index.html
 
 # -----------------------------------------------------------------------------
 # Deploy
 # -----------------------------------------------------------------------------
 
 dist: clean ## builds source and wheel package
-	python3 -m build --wheel
+	python -m build --wheel
 
 release_test: ## upload package to pypi test
 	twine upload dist/* -r pypitest
 
 release: dist ## package and upload a release
 	twine upload dist/*
+
+# -----------------------------------------------------------------------------
+# Project Specific
+# -----------------------------------------------------------------------------
+
+# Add project specific targets here

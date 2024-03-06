@@ -1,5 +1,4 @@
-wheel
-twine
-build
-django
-pre-commit
+twine==5.0.0
+wheel==0.42.0
+build==1.1.1
+pre-commit==3.6.2

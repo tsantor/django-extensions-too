@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 from pathlib import Path
 
@@ -50,6 +49,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # self.style = color_style()
+
+        # management.call_command("unreferenced_files", verbosity=0)
 
         # Get a list of all files under MEDIA_ROOT
         media = set()
