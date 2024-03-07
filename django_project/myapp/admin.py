@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import TestModel
+from .models import FakeModel
 
 
-@admin.register(TestModel)
-class TestModeldmin(admin.ModelAdmin):
+@admin.register(FakeModel)
+class FakeModelAdmin(admin.ModelAdmin):
     pass

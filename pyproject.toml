@@ -44,7 +44,7 @@ filterwarnings = ["ignore::DeprecationWarning", "ignore::UserWarning"]
 
 # ==== Coverage ====
 [tool.coverage.run]
-include = ["django_extensions_too/**"]
+include = ["django_extensions_too/**/*.py"]
 omit = ["*/migrations/*", "*/tests/*"]
 plugins = ["django_coverage_plugin"]
 

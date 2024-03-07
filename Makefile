@@ -31,8 +31,8 @@ env:  ## Create virtual environment
 
 reqs:  ## Install requirements
 	python3 -m pip install -U pip && \
-		python -m pip install -r requirements_dev.txt && \
-		python -m pip install -r requirements_test.txt
+		python -m pip install -r requirements.txt && \
+		pre-commit install
 
 env_remove:  ## Remove virtual environment
 	pyenv uninstall ${venv}

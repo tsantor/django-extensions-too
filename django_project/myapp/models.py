@@ -1,6 +1,6 @@
 from django.db import models
 
 
-class TestModel(models.Model):
+class FakeModel(models.Model):
 
     file = models.FileField(blank=True, null=True)

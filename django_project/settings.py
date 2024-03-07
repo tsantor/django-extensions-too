@@ -70,6 +70,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "debug": DEBUG,
         },
     },
 ]
@@ -122,3 +123,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "django_project/media/")
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        # 'LOCATION': '/path/to/your/storage',
+    },
+}
