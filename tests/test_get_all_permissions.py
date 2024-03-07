@@ -19,8 +19,11 @@ def test_get_all_permissions(superuser, capsys):
     expected_output = "\n".join(f"{perm.content_type.app_label}.{perm.codename}" for perm in sorted_permissions)
 
     # Check that the output includes all permissions
+    # TODO: Fix this test
     # assert capsys.readouterr().out == expected_output
     print("\n")
     print(capsys.readouterr().out)
     print("-" * 40)
     print(expected_output)
+
+    call_command("get_all_permissions")

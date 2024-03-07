@@ -18,7 +18,11 @@ class Command(BaseCommand):
         else:
             # We create (but not persist) a temporary superuser and use it to
             # game the system and pull all permissions easily.
-            tmp_superuser = get_user_model()(is_active=True, is_superuser=True)
+            tmp_superuser = get_user_model()(
+                is_active=True,
+                is_staff=True,
+                is_superuser=True,
+            )
 
         # We go over each AUTHENTICATION_BACKEND and try to fetch
         # a list of permissions
