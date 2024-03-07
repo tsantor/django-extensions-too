@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 from pathlib import Path
 
@@ -6,7 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.management.base import BaseCommand
 from django.db import models
 
-# from django_extensions_too.management.color import color_style
+logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 
@@ -24,7 +25,7 @@ def walk_folder(storage, base="/", error_handler=None):
     try:
         folders, files = storage.listdir(base)
     except OSError as e:
-        print(f"An error occurred while walking directory {base}")
+        logger.error("An error occurred while walking directory %s", base)
         if error_handler:
             error_handler(e)
         return
