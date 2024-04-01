@@ -5,4 +5,4 @@ include README.md
 
 # include requirements.txt
 # include requirements_*.txt
-# recursive-include django_spaday *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+# recursive-include django_extensions_too *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
