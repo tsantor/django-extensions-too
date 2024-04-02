@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-@pytest.fixture
+@pytest.fixture()
 def superuser():
     return User.objects.create_user(
         first_name="Super",

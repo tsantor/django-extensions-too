@@ -1,8 +1,15 @@
-import os
+import json
 
 from django.conf import settings
 from django.contrib.staticfiles.storage import ManifestStaticFilesStorage
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
+
+
+def recommend_storage(storage) -> str:
+    """Recommend a storage backend."""
+    storages = {"staticfiles": {"BACKEND": f"{storage}"}}
+    return json.dumps(storages, indent=4)
 
 
 class Command(BaseCommand):
@@ -22,27 +29,20 @@ class Command(BaseCommand):
             "whitenoise.storage.CompressedManifestStaticFilesStorage",
         ]
 
-        # Defense against forgetfullness
-        if settings.DEBUG:
-            print("Ensure the following line is in settings")  # noqa
-            print("     DEBUG = False")
-            return
+        # Force DV to be False and collect static files
+        settings.DEBUG = False
+        call_command("collectstatic", interactive=False)
 
-        if not any(x in settings.STATICFILES_STORAGE for x in staticfiles_storages):
-            print("Ensure ONE of the following lines is in settings")  # noqa
+        if settings.STATICFILES_STORAGE is not None and not any(
+            x in settings.STATICFILES_STORAGE for x in staticfiles_storages
+        ):
+            self.stdout.write("Ensure ONE of the following backends is in settings")
             for storage in staticfiles_storages:
-                print(f'    STATICFILES_STORAGE = "{storage}"')
-
-        if not hasattr(settings, "STATIC_ROOT"):
-            print("You need to set STATIC_ROOT")
-
-        if not os.path.exists(settings.STATIC_ROOT):
-            print("You need to run:")
-            print("    python manage.py collectstatic")
-            return
+                storage_backend = recommend_storage(storage)
+                self.stdout.write(f"STORAGES = {storage_backend}")
 
         # Ok, let's see...
-        print(f"DEBUG: {settings.DEBUG}")
-        print(f"STATIC_ROOT: {settings.STATIC_ROOT}")
+        self.stdout.write(f"DEBUG: {settings.DEBUG}")
+        self.stdout.write(f"STATIC_ROOT: {settings.STATIC_ROOT}")
         url = ManifestStaticFilesStorage().url(options["path"], force=True)
-        print(f'{options["path"]} => {url}')
+        self.stdout.write(f'{options["path"]} => {url}')

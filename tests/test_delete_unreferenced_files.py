@@ -2,18 +2,19 @@ import pytest
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.management import call_command
+from django_extensions_too.management.commands.delete_unreferenced_files import (
+    walk_folder,
+)
 
-from django_extensions_too.management.commands.delete_unreferenced_files import walk_folder
 from django_project.myapp.models import FakeModel
 
 
-# from django_prod.models import YourModel  # replace with one of your actual models
 @pytest.fixture(autouse=True)
-def media_storage(settings, tmpdir):
+def _media_storage(settings, tmpdir):
     settings.MEDIA_ROOT = tmpdir.strpath
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_walk_folder():
     # Setup: create some files and folders in the default storage
     base_folder = "test_folder"
@@ -21,7 +22,9 @@ def test_walk_folder():
     file1 = "file1.txt"
     file2 = "file2.txt"
     default_storage.save(f"{base_folder}/{file1}", ContentFile("Hello, World!"))
-    default_storage.save(f"{base_folder}/{subfolder}/{file2}", ContentFile("Hello, World!"))
+    default_storage.save(
+        f"{base_folder}/{subfolder}/{file2}", ContentFile("Hello, World!")
+    )
 
     # Call walk_folder and collect the results
     results = list(walk_folder(default_storage, base_folder))
@@ -31,7 +34,7 @@ def test_walk_folder():
     assert (f"{base_folder}/{subfolder}", [], [file2]) in results
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_delete_unreferenced_files(capsys):
     # Setup: create a file that is not referenced by any model
     unreferenced_file_path = "unreferenced.txt"
