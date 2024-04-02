@@ -20,19 +20,16 @@ DEBUG = True
 
 # Test manifest storage locally
 # DEBUG = False
-STATIC_ROOT = BASE_DIR / "tests/staticfiles/"
+# STATIC_ROOT = BASE_DIR / "tests/staticfiles/"
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "LOCATION": BASE_DIR / "tests/staticfiles/",
+    },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-    }
+    },
 }
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "django.core.files.storage.FileSystemStorage",
-#         # 'LOCATION': '/path/to/your/storage',
-#     },
-# }
-
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
