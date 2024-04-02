@@ -28,10 +28,30 @@ INSTALLED_APPS = (
 
 Run `python3 manage.py` and view the available `[django_extensions_too]` management_commands.
 
+Delete all files from `MEDIA_ROOT` (local or cloud) which are not referenced in the database.
+
+    $ python manage.py delete_unreferenced_files
+
+Show a list of all files missing from `MEDIA_ROOT`(local or cloud) that are referenced in the database.
+
+    $ python manage.py missing_files
+
+Completely remove an installed app from a project. Removes all model related tables as well as all traces from `auth_permissions`, `django_admin_log`, `django_content_type`, `django_migrations`, etc.
+
+    $ python manage.py remove_app appname
+
+Adds permissions for proxy models to provide more granular permission control.
+
+    $ python manage.py add_proxy_permissions
+
+Output all permission strings:
+
+    $ python manage.py get_all_permissions
+
 ## Local Development
 
 1. `make env`
-1. `make reqs`
+1. `make pip_install`
 1. `make makemigrations`
 1. `make migrate`
 1. `make superuser`
