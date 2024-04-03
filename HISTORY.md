@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.7 (2025-04-03)
+
+- Move to ruff and add tests.
+
 ## 0.1.6 (2023-06-21)
 
 - Change to new Python packaging style with `pyproject.toml`.
