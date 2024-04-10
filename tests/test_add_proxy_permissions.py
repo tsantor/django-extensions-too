@@ -1,9 +1,19 @@
 import pytest
+from django.contrib.auth.models import Permission
 from django.core.management import call_command
 
 
 @pytest.mark.django_db()
 def test_add_proxy_permissions(capsys):
+    # Remove permissions by codename (reset state before running the command)
+    codenames = [
+        "add_fakeproxymodel",
+        "change_fakeproxymodel",
+        "delete_fakeproxymodel",
+        "view_fakeproxymodel",
+    ]
+    Permission.objects.filter(codename__in=codenames).delete()
+
     # Call the command capture the output
     call_command("add_proxy_permissions", verbosity=0)
 
